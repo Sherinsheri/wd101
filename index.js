@@ -69,7 +69,7 @@ user_form.addEventListener("submit", (event) => {
     dobInput.reportValidity();
     return;
   }else{
-      dobInput.setCustomValidity("You must be between 18 and 55 years old.");
+      dobInput.setCustomValidity("");
   }
 
   let name = document.getElementById("name").value;
