@@ -61,10 +61,15 @@ user_form.addEventListener("submit", (event) => {
   const date = new Date(document.getElementById("dob").value);
   const ageDiff = today - date;
   const age = ageDiff / (365.25 * 24 * 60 * 60 * 1000); // approx years
+  const dobInput = document.getElementById("dob"); 
 
   if (age < 18 || age > 55) {
     alert("Your age must be between 18 and 55 to register.");
+    dobInput.setCustomValidity("You must be between 18 and 55 years old.");
+    dobInput.reportValidity();
     return;
+  }else{
+      dobInput.setCustomValidity("You must be between 18 and 55 years old.");
   }
 
   let name = document.getElementById("name").value;
