@@ -11,25 +11,29 @@ let emailinput = document.getElementById("email");
 emailinput.addEventListener("blur", () => validate(emailinput));
 
 function validateDOB(input) {
-    const today = new Date();
-    const dob = new Date(input.value);
+  const today = new Date();
+  const dob = new Date(input.value);
 
-    let age = today.getFullYear() - dob.getFullYear();
-    const m = today.getMonth() - dob.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-      age--;
-    }
-
-    if (age < 18 || age > 55) {
-      input.setCustomValidity("You must be between 18 and 55 years old.");
-      input.reportValidity();
-    } else {
-      input.setCustomValidity("");
-    }
+  let age = today.getFullYear() - dob.getFullYear();
+  const m = today.getMonth() - dob.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+    age--;
   }
 
-  let dobInput = document.getElementById("dob");
-  dobInput.addEventListener("blur", () => validateDOB(dobInput));
+  // Extracted validation logic for DOB
+  const minAge = 18;
+  const maxAge = 55;
+
+  if (age < minAge || age > maxAge) {
+    input.setCustomValidity(`Age must be between ${minAge} and ${maxAge} years.`);
+    input.reportValidity();
+  } else {
+    input.setCustomValidity("");
+  }
+}
+
+let dobInput = document.getElementById("dob");
+dobInput.addEventListener("blur", () => validateDOB(dobInput));
 
 let user_form = document.getElementById("user_form");
 const retrieveEntries = () => {
@@ -74,28 +78,15 @@ const displayEntries = () => {
 
 user_form.addEventListener("submit", (event) => {
   event.preventDefault();
-  // const today = new Date();
-  // const date = new Date(document.getElementById("dob").value); // approx years
-  // const dobInput = document.getElementById("dob"); 
 
-  // let age = today.getFullYear() - date.getFullYear();
-  //           const m = today.getMonth() - date.getMonth();
-  //           if (m < 0 || (m === 0 && today.getDate() < date.getDate())) {
-  //               age--;
-  //           }
+  // Call the validation functions explicitly before collecting data
+  validate(emailinput);
+  validateDOB(dobInput);
 
-  // if (age < 18 || age > 55) {
-  //   dobInput.setCustomValidity("You must be between 18 and 55 years old.");
-  //   dobInput.reportValidity();
-  //   return;
-  // }else{
-  //     dobInput.setCustomValidity("");
-  // }
-
-  // if (!user_form.checkValidity()) {
-            //     return; 
-            // }
-
+  // If any validation fails, stop the submission
+  if (!user_form.checkValidity()) {
+    return;
+  }
 
   let name = document.getElementById("name").value;
   let password = document.getElementById("password").value;
