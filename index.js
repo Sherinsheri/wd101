@@ -6,6 +6,15 @@ function validate(e) {
     e.setCustomValidity("");
   }
 }
+
+// function validateAge(e){
+//    if (e.validity) {
+//     e.setCustomValidity("The age is not acceptable!!!!!");
+//     e.reportValidity();
+//   } else {
+//     e.setCustomValidity("");
+//   }
+// }
 let emailinput = document.getElementById("email");
 emailinput.addEventListener("blur", () => validate(emailinput));
 
@@ -52,28 +61,28 @@ const displayEntries = () => {
 
 user_form.addEventListener("submit", (event) => {
   event.preventDefault();
-  const today = new Date();
-  const date = new Date(document.getElementById("dob").value); // approx years
-  const dobInput = document.getElementById("dob"); 
+  // const today = new Date();
+  // const date = new Date(document.getElementById("dob").value); // approx years
+  // const dobInput = document.getElementById("dob"); 
 
-  let age = today.getFullYear() - date.getFullYear();
-            const m = today.getMonth() - date.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < date.getDate())) {
-                age--;
-            }
+  // let age = today.getFullYear() - date.getFullYear();
+  //           const m = today.getMonth() - date.getMonth();
+  //           if (m < 0 || (m === 0 && today.getDate() < date.getDate())) {
+  //               age--;
+  //           }
 
-  if (age < 18 || age > 55) {
-    alert("Your age must be between 18 and 55 to register.");
-    dobInput.setCustomValidity("You must be between 18 and 55 years old.");
-    dobInput.reportValidity();
-    return;
-  }else{
-      dobInput.setCustomValidity("");
-  }
+  // if (age < 18 || age > 55) {
+  //   dobInput.setCustomValidity("You must be between 18 and 55 years old.");
+  //   dobInput.reportValidity();
+  //   return;
+  // }else{
+  //     dobInput.setCustomValidity("");
+  // }
 
-  if (!user_form.checkValidity()) {
-                return; 
-            }
+  // if (!user_form.checkValidity()) {
+  //               return; 
+  //           }
+
 
   let name = document.getElementById("name").value;
   let password = document.getElementById("password").value;
