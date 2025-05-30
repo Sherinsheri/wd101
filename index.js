@@ -52,16 +52,15 @@ const displayEntries = () => {
 
 user_form.addEventListener("submit", (event) => {
   event.preventDefault();
-  // validate(emailinput);
-
-  // if (!emailinput.checkValidity()) {
-  //   event.preventDefault(); // stop form submission if invalid
-  // }
   const today = new Date();
-  const date = new Date(document.getElementById("dob").value);
-  const ageDiff = today - date;
-  const age = ageDiff / (365.25 * 24 * 60 * 60 * 1000); // approx years
+  const date = new Date(document.getElementById("dob").value); // approx years
   const dobInput = document.getElementById("dob"); 
+
+  let age = today.getFullYear() - date.getFullYear();
+            const m = today.getMonth() - date.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < date.getDate())) {
+                age--;
+            }
 
   if (age < 18 || age > 55) {
     alert("Your age must be between 18 and 55 to register.");
@@ -71,6 +70,10 @@ user_form.addEventListener("submit", (event) => {
   }else{
       dobInput.setCustomValidity("");
   }
+
+  if (!user_form.checkValidity()) {
+                return; 
+            }
 
   let name = document.getElementById("name").value;
   let password = document.getElementById("password").value;
